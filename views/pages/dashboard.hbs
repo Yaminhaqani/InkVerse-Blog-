@@ -1,0 +1,19 @@
+<div class="flex flex-col items-center w-[90%] mx-auto mt-11 sm:w-[40%] bg-white shadow-blue-400 shadow-lg rounded-lg p-4">
+  <h1 class="text-3xl font-bold mb-4 text-gray-800">Dashboard</h1>
+  
+  <nav class="flex flex-col space-y-2 w-full 
+   [&>a]:hover:bg-blue-600
+   [&>a]:hover:shadow-blue-900
+   [&>a]:hover:shadow-md
+   [&>a]:hover:scale-105
+   [&>a]:transition-all  {{!--smooth transition to all properties (background, shadow, scale, etc.).--}}
+   [&>a]:duration-350
+   [&>a]:ease-in-out
+
+   ">
+    <a href="/blog/create" class="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-700 transition">Create Blog</a>
+    <a href="/blog/getAll" class="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-700 transition">Blog List</a>
+    <a href="/blog/archived" class="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-700 transition">Archived List</a>
+    <a href="/blog/deleted" class="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-700 transition">Deleted List</a>
+  </nav>
+</div>

@@ -1,0 +1,35 @@
+<div class="w-full flex justify-center">
+  <div class="w-[90%] sm:w-[80%] flex flex-col items-center mt-10 relative">
+
+    <!-- Back Button -->
+    <div class="w-full mb-6 sm:mb-8">
+      <button onclick="window.history.go(-1)" 
+        class="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+        role="button"
+        aria-label="Go back">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        <span class="text-sm sm:text-base">Back to Previous Page</span>
+      </button>
+    </div>
+
+    <!-- Blog Content -->
+    <div class="w-full max-w-4xl">
+      <h1 class="text-xl sm:text-2xl font-bold mb-3 text-center">{{blogTitle}}</h1>
+      <h2 class="text-sm sm:text-base font-semibold text-center text-gray-600">{{blogDescShort}}</h2>
+      <p class="text-[12px] text-gray-600 text-center mb-4">By {{author}}</p>
+      
+      <div class="w-full mb-6 sm:mb-8">
+        <img src="{{blogImageUrl}}" alt="Blog image" class="w-full h-auto max-w-[600px] mx-auto rounded-lg">
+      </div>
+
+      <h3 class="text-xs sm:text-sm font-bold mb-8 sm:mb-12 text-center uppercase text-blue-600">{{category}}</h3>
+      
+      <div class="prose max-w-none w-full sm:prose-lg">
+        {{{blogDesc}}}
+      </div>
+    </div>
+
+  </div>
+</div>

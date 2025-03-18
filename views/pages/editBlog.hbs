@@ -1,0 +1,124 @@
+<link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet">
+
+<div class="w-full max-w-[1400px] mx-auto bg-white p-4 sm:p-6 shadow-md rounded-lg">
+  <!-- Back Button -->
+  <div class="mb-4 sm:mb-6">
+    <button onclick="window.history.go(-1)" 
+      class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+      role="button"
+      aria-label="Go back">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      <span class="text-sm sm:text-base">Back to Previous Page</span>
+    </button>
+  </div>
+
+  <h2 class="text-lg sm:text-xl font-bold mb-4 text-center">Edit Blog</h2>
+
+  <form id="editBlogForm" class="space-y-3 sm:space-y-4">
+    <!-- Blog Title -->
+    <label class="block">
+      <span class="text-sm sm:text-base text-gray-700">Blog Title</span>
+      <input type="text" id="blogTitle" value="{{blogArr.blogTitle}}"
+        class="mt-1 block w-full px-3 sm:px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 text-sm sm:text-base" required>
+    </label>
+
+    <!-- Short Description -->
+    <label class="block">
+      <span class="text-sm sm:text-base text-gray-700">Short Description</span>
+      <input type="text" id="blogDescShort" value="{{blogArr.blogDescShort}}"
+        class="mt-1 block w-full px-3 sm:px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 text-sm sm:text-base" required>
+    </label>
+
+    <!-- Image URL -->
+    <label class="block">
+      <span class="text-sm sm:text-base text-gray-700">Image URL</span>
+      <input type="text" id="blogImageUrl" value="{{blogArr.blogImageUrl}}"
+        class="mt-1 block w-full px-3 sm:px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 text-sm sm:text-base" required>
+    </label>
+
+    <!-- Category -->
+    <label class="block">
+      <span class="text-sm sm:text-base text-gray-700">Category</span>
+      <select id="category" class="mt-1 block w-full px-3 sm:px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 text-sm sm:text-base" required>
+        <option value="" disabled>Select a category</option>
+        <option value="Political" {{#if (eq blogArr.category "Political")}}selected{{/if}}>Political</option>
+        <option value="Vacation" {{#if (eq blogArr.category "Vacation")}}selected{{/if}}>Vacation</option>
+        <option value="Travel" {{#if (eq blogArr.category "Travel")}}selected{{/if}}>Travel</option>
+        <option value="Technology" {{#if (eq blogArr.category "Technology")}}selected{{/if}}>Technology</option>
+        <option value="Health" {{#if (eq blogArr.category "Health")}}selected{{/if}}>Health</option>
+        <option value="Education" {{#if (eq blogArr.category "Education")}}selected{{/if}}>Education</option>
+        <option value="Entertainment" {{#if (eq blogArr.category "Entertainment")}}selected{{/if}}>Entertainment</option>
+      </select>
+    </label>
+
+    <!-- Blog Description -->
+    <label class="block">
+      <span class="text-sm sm:text-base text-gray-700">Blog Description</span>
+    </label>
+    <div class="fr-container max-w-full">
+      <textarea name="blogDesc" id="blogDesc" required>{{{blogArr.blogDesc}}}</textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" id="submit"
+      class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 text-sm sm:text-base font-medium">
+      Update
+    </button>
+  </form>
+</div>
+
+<style>
+  .fr-box {
+    max-width: 100%;
+    width: 100% !important;
+  }
+  @media (max-width: 640px) {
+    .fr-box .fr-wrapper {
+      min-height: 300px;
+    }
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+<script>
+  // Initialize Froala Editor
+  const editor = new FroalaEditor("#blogDesc", {
+    placeholderText: "Edit your blog here...",
+    heightMin: 300,
+    heightMax: 600,
+    toolbarSticky: true,
+    //toolbarBottom: true
+  });
+
+  document.getElementById("editBlogForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const blogTitle = document.getElementById("blogTitle").value;
+    const blogDescShort = document.getElementById("blogDescShort").value;
+    const blogImageUrl = document.getElementById("blogImageUrl").value;
+    const category = document.getElementById("category").value;
+    const blogDesc = editor.html.get();
+
+    const formBody = { blogTitle, blogDesc, blogDescShort, blogImageUrl, category };
+
+    try {
+      const res = await fetch("/blogs/edit/{{blogArr._id}}", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formBody)
+      });
+      const data = await res.json();
+      if(data.message === "Blog updated successfully"){
+        window.alert(data.message);
+        const blogId = data.payload._id;
+        window.location.href = `/blogs/${blogId}`;
+      } else {
+        window.alert("Error updating blog");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+</script>
