@@ -24,7 +24,7 @@ const { createBlog, getCreateBlogPage, getAllBlogs, getBlogs, getBlogbyId, editB
 const { helpers } = require("handlebars");
 require("dotenv").config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 connectDb();
 
