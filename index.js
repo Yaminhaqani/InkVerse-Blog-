@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 
 
 // server rendered pages
-app.get("/", (req, res) => {res.render("blogs");});
+app.get("/", isAuthorised, (req, res) => {res.render("blogs");});
 app.get("/user/register", (req, res) => {res.render("register", { title: "Register" });});
 app.get("/user/login", (req, res) => { res.render("login", { title: "Login" });});
 
