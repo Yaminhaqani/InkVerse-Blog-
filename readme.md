@@ -91,7 +91,7 @@ EMAIL_PASS=your_email_password
 ### 4. Run the Server
 
 ```bash
-npm run dev
+node index.js
 ```
 
 ### 5. Run Tailwind CSS Watcher
