@@ -16,7 +16,7 @@
 
 * ✉️ **Password Recovery**
 
-  * Forgot password feature via Nodemailer
+  * Forgot password feature via Nodemailer (yet to be added)
 
 * 📝 **Blog Management**
 
